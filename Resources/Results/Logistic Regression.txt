@@ -1,0 +1,7 @@
+Results for Logistic Regression classifier:
+-------------------------------------
+Score: 0.9574468085106383
+Inaccurate Predictions: 8
+False Positives: 4
+False Negatives: 4
+Difference (positive is good): 0

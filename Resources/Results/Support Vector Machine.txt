@@ -1,0 +1,7 @@
+Results for Support Vector Machine classifier:
+-------------------------------------
+Score: 0.9414893617021277
+Inaccurate Predictions: 11
+False Positives: 5
+False Negatives: 6
+Difference (positive is good): -1

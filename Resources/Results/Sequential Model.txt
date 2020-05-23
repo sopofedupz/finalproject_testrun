@@ -1,0 +1,7 @@
+Results for Sequential Model classifier:
+-------------------------------------
+Score: 0.957446813583374
+Inaccurate Predictions: 8
+False Positives: 4
+False Negatives: 4
+Difference (positive is good): 0

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com -->
+  <title>Breast Cancer (Malignancies) Prediction</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/Resources/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Resources/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Resources/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+ 
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div id="nbar" class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a id="logo" href="#myPage" class="navbar-brand"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
+        <li><a href="#intro">INTRODUCTION</a></li>
+        <li><a href="#pre">PRELIMINARY ANALYSIS</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">CLASSIFIERS
+          <span class="caret"></span></a>
+          <ul id="subnav" class="dropdown-menu">
+            <li><a href="#log">LOGISTIC REGRESSION</a></li>
+            <li><a href="#svm">SUPPORT VECTOR MACHINE</a></li>
+            <li><a href="#dt">DECISION TREE</a></li> 
+            <li><a href="#rf">RANDOM FOREST</a></li> 
+            <li><a href="#knn">K NEAREST NEIGHBOR</a></li> 
+            <li><a href="#seq">SEQUENTIAL MODEL</a></li> 
+          </ul>
+        </li>
+        <li><a href="#comp">COMPARISON</a></li>
+        <li><a href="#summ">SUMMARY</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron text-center">
+  <h1>Mayje Solutions</h1> 
+  <p>"Seeking to improve lives through AI."</p> 
+</div>
+
+<!-- Container (Introduction Section) -->
+<div id="intro" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>INTRODUCTION</h2><br>
+      <h4>Analyzing and presenting data from a dataset sourced from the Breast Cancer Wisconsin (diagnostic) data set.</h4><br>
+      <p>
+        The models we ran include Logistic Regression (Yee Mun Chan), Support Vector Machine (Jake Portra), Decision tree algorithm (Enrique Saenger), Random Forest Classification (Molly McCarthy), K nearest neighbor (Enrique Saenger), Sequential model (Ashwin Patel)
+The task was to see if any one model was better at predicting malignancy in tumors that any other model.
+Our belief was that using a neural network would provide optimal results, but it was still important to compare it to machine learning classifiers due to their simplicity.
+
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Container (Preliminary Analysis Section) -->
+<div id="pre" class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>PRELIMINARY ANALYSIS</h2><br>
+      <h4>Data Cleaning and Features Selection</h4>
+      <p>Since the dataset we use is a popular and widely used dataset for breast cancer prediction, we can expect that not much data cleaning is needed. However, we followed 
+        through the regular steps of examining data. First, we ran a quick summary on the dataset to examine if we would see anything that is out of ordinary 
+        (e.g., missing data, wrongly encoded data). There is an additional column in the dataset that has no data and therefore, we went ahead and removed the data. 
+        For the analysis purpose, we have also recoded the tumor diagnosis (i.e., malignant and benign) into 1s and 0s. Additionally, we decided not to remove any outlier 
+        from the analysis as we want to consider all possibilities in our analysis. For other data types such as sales data, one may want to review and consider removing any 
+        observed outliers for a more robust prediction model.</p>
+      <br>
+      <p>There are 30 features in the breast cancer dataset. One of the methods used in feature selection is to look at the correlation between features and outcome and remove 
+        any feature that has weak to no correlation with the outcome. For this purpose, we generated a correlation heatmap using all features and outcome (which is coded as 1s 
+        and 0s). The correlation heatmap is also useful when examining the relationship among features. Using a coefficient threshold of .50, we ended up including 15 features 
+        in the classification models.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="img-container">
+        <h3>Correlation Heatmap</h3>
+        <img id="corr_plot" style="width: 50%;" src="/Resources/Corr Heatmap.jpg" alt="Correlation Heatmap">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Container (Logistic Regression Section) -->
+<div id="log" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>LOGISTIC REGRESSION</h2><br>
+      <h4>Similar to linear regression, logistic regression is a simple and useful technique to examine the relationship between variables, specifically in predicting 
+        a categorical variable. Logistic regression is used in many fields such as disease diagnosis and flagging spam or non-spam emails.</h4>
+      <p>Logistic regression algorithms use the sigmoid function in modeling data. A threshold is set to predict the class a datum belongs to. The typical threshold for 
+        binary classification is 0.5. The model will then classify a tumor as benign if the value is lower than 0.5 and malignant if the value is at least 0.5.
+         To learn more about logistic regression, please refer to <a href = "https://towardsdatascience.com/logistic-regression-detailed-overview-46c4da4303bc" target="_blank">
+        Logistic Regression - Detailed Overview by Swaminathan</a>.</p><br>
+      <p>The overall accuracy of this model is 96.06%. As we would expect, the model accuracy of our training data is slightly higher than the testing data (95.74%). 
+        There are 8 inaccurate predictions (4%), with 4 FP and 4 FN. The area under the ROC curve (AUC) is .95. Overall, we’d conclude that Logistic Regression does a 
+        pretty good job in predicting malignant tumors.</p>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Confusion Matrix</h3>
+      <img id="plot" src="/Resources/Results/Logistic Regression.jpg" alt="Logistic Regression 1">
+    </div>
+    <div class="col-sm-6">
+      <h3>ROC Curve</h3>
+      <img id="plot" src="/Resources/Results/Logistic Regression2.jpg" alt="Logistic Regression 2">
+    </div>
+  </div>
+</div>
+
+<!-- Container (Support Vector Machine Section) -->
+<div id="svm" class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>SUPPORT VECTOR MACHINE</h2><br>
+      <h4>Support Vector Machine is another supervised learning model that we tested. Although we used SVM for linear classification, it can be used for non-linear classification 
+        as well.</h4><br>
+      <p>It is worthy to mention that SVM model may exhibit very similar results compared to Logistic Regression model. This can happen when using SVM for linear classification. 
+        As Chandrima D. from Nihilent Analytics Ltd. explains, "If your data is linearly separable...then using SVM with linear kernel will yield pretty much [the] same 
+        accuracy as using L2-regularized logistic regression. The reason is: both of them use almost similar loss functions." To learn more, check out 
+        <a href="https://www.quora.com/Can-logistic-regression-and-SVM-give-the-same-accuracy-when-using-the-same-training-test-set-If-so-why" target="_blank">
+        Chandrima's explanation</a>.</p><br>
+      <p>The overall accuracy of this model is 94%. There are 11 inaccurate predictions (6%), with 5 FP and 6 FN. The area under the ROC curve (AUC) is .94. The SVM Model also does a 
+        pretty good job in predicting malignant tumors.</p><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Confusion Matrix</h3>
+      <img id="plot" src="/Resources/Results/Support Vector Machine.jpg" alt="SVM 1">
+    </div>
+    <div class="col-sm-6">
+      <h3>ROC Curve</h3>
+      <img id="plot" src="/Resources/Results/Support Vector Machine2.jpg" alt="SVM 2">
+    </div>
+  </div>
+</div>
+
+<!-- Container (Decision Tree Section) -->
+<div id="dt" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>DECISION TREE</h2><br>
+      <h4>Among our several other classifiers we chose to make a model using a decision tree. A decision tree is a simple yet powerful classifier with strong predictive potential.</h4><br>
+      <p>By combining several of these yes/no decisions, a giant tree is formed though a supervised machine learning model where the data is split according to a certain 
+        parameter. By splitting our dataset (in which we already know the outcome) we can create two separate volumes of data so that we can see how accurately our model is 
+        predicting the data. Additionally, we can see how often the model is making mistakes and even if that mistake was a false positive or a false negative. The results of 
+        this analysis are shown below.</p><br>
+      <p>The overall accuracy of the Decision Tree model is 90%. There are 19 inaccurate predictions (10%), with 12 FP and 7 FN. The area under the ROC curve (AUC) is .89. 
+        Although the model does not have as high accuracy as other models, it still does a good job in predicting malignant tumors. Despite having more inaccurate predictions, 
+        it is worthy to point out that the model predicts less FN (i.e., predicting a tumor is benign when it is malignant).</p><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Confusion Matrix</h3>
+      <img id="plot" src="/Resources/Results/Decision Tree.jpg" alt="Decision Tree 1">
+    </div>
+    <div class="col-sm-6">
+      <h3>ROC Curve</h3>
+      <img id="plot" src="/Resources/Results/Decision Tree2.jpg" alt="Decision Tree 2">
+    </div>
+  </div>
+</div>
+
+<!-- Container (Random Forest Section) -->
+<div id="rf" class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>RANDOM FOREST</h2><br>
+      <h4>It is an ensemble tree-based learning algorithm. The Random
+        Forest Classifier is a set of decision trees from randomly selected
+        subset of training set. It aggregates the votes from different
+        decision trees to decide the final class of the test object.</h4><br>
+      <p>Ensemble algorithms are those which combines more than
+        one algorithms of same or different kind for classifying
+        objects. For example, running prediction over Naive Bayes, SVM
+        and Decision Tree and then taking vote for final consideration of
+        class for test object.</p><br>
+      <p>The overall accuracy of the Random Forest model is 94.2%. There are 11 inaccurate predictions (6%), with 5 FP and 6 FN. The area under the ROC curve (AUC) is .94. 
+        Similar to the SVM model, Random Forest predicts more FN than FP. Per the overall model accuracy and AUC scores, Random Forest does a good job in predicting 
+      breast cancer.</p><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Confusion Matrix</h3>
+      <img id="plot" src="/Resources/Results/Random Forest.jpg" alt="Ramdom Forest 1">
+    </div>
+    <div class="col-sm-6">
+      <h3>ROC Curve</h3>
+      <img id="plot" src="/Resources/Results/Random Forest2.jpg" alt="Random Forest 2">
+    </div>
+  </div>
+</div>
+
+<!-- Container (K Nearest Neighbor Section) -->
+<div id="knn" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>K NEAREST NEIGHBOR</h2><br>
+      <h4>Another classifier that was worth considering in our analysis was K Nearest Neighbor.</h4><br>
+      <p>Even though finding the proper k value can be a challenge, in the search of an over-predicting model it was a useful tool. In our testing, we found that using a 
+        k value of 3 allowed for an accuracy of 94.7% while maintaining a rate of just over 3% false negatives. Overall this classifier does quite a good job of predicting malignancy in tumors, but there may be better options.</p><br>
+      <p>The plots below show this classifier's results using a k of 3.</p><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Confusion Matrix</h3>
+      <img id="plot" src="/Resources/Results/K Nearest Neighbor.jpg" alt="K Nearest Neighbor 1">
+    </div>
+    <div class="col-sm-6">
+      <h3>ROC Curve</h3>
+      <img id="plot" src="/Resources/Results/K Nearest Neighbor2.jpg" alt="K Nearest Neighbor 2">
+    </div>
+  </div>
+</div>
+
+<!-- Container (Sequential Section) -->
+<div id="seq" class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>SEQUENTIAL NEURAL NETWORK</h2><br>
+      <h4>Sequential is the easiest way to build a model in Keras. It allows you to build a model layer by
+        layer. Each layer has weights that correspond to the layer the follows it. We use the add()
+        function to add layers to our model. Activation; is the activation function for the layer.</h4><br>
+      <p>Neural Networks sequentially build high-level features through their successive layers. We
+        propose here a new neural network model where each layer is associated with a set of
+        candidate mappings</p><br>
+      <p>The overall accuracy of the Sequential Model is 96%. Similar to the Logistic Regression model, there are 8 inaccurate predictions (4%), with 4 FP and 4 FN. Per the overall 
+        model accuracy and AUC score of .95, this model does a good job in predicting malignant tumors.</p><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Confusion Matrix</h3>
+      <img id="plot" src="/Resources/Results/Sequential Model.jpg" alt="Sequential Model 1">
+    </div>
+    <div class="col-sm-6">
+      <h3>ROC Curve</h3>
+      <img id="plot" src="/Resources/Results/Sequential Model2.jpg" alt="Sequential Model 2">
+    </div>
+  </div>
+</div>
+
+<!-- Container (Comparison Section) -->
+<div id="comp" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>Comparison</h2><br>
+      <h4>In order to make an accurate model, it is important to compare the different classifiers we have analyzed.</h4><br>
+      <p>This visualization allows you to compare different classifiers and see how they differ in accuracy as well as false negatives and positives. </p>
+      <img src="/Resources/ROC - ALL models.jpg" width="600" height = "600">
+    </div>
+    <div class="col-sm-4">
+      <label for="classifiersLeft">Choose a classifier:</label>
+      <select name="classifiersLeft" id="classifiersLeft" onchange="setLeftPicture();">
+        <option value="/Resources/Results/Logistic Regression">Logistic Regression</option>
+        <option value="/Resources/Results/Support Vector Machine">Support Vector Machine</option>
+        <option value="/Resources/Results/Decision Tree">Decision Tree</option>
+        <option value="/Resources/Results/Random Forest">Random Forest</option>
+        <option value="/Resources/Results/K Nearest Neighbor">K Nearest Neighbor</option>
+        <option value="/Resources/Results/Sequential Model">Sequential</option>
+      </select><br><br>
+      <object id="leftResults" width="350" height="145" type="text/plain" data="/Resources/Results/Logistic Regression.txt" border="0" style="overflow: hidden;"></object>
+      <img id="leftImg1" src="/Resources/Results/Logistic Regression.jpg" width="525" height="350"><br><br>
+    </div>
+    <div class="col-sm-4">
+      <label for="classifiersRight">Choose a classifier:</label>
+      <select name="classifiersRight" id="classifiersRight" onchange="setRightPicture();">
+        <option value="/Resources/Results/Logistic Regression">Logistic Regression</option>
+        <option value="/Resources/Results/Support Vector Machine">Support Vector Machine</option>
+        <option value="/Resources/Results/Decision Tree">Decision Tree</option>
+        <option value="/Resources/Results/Random Forest">Random Forest</option>
+        <option value="/Resources/Results/K Nearest Neighbor">K Nearest Neighbor</option>
+        <option value="/Resources/Results/Sequential Model">Sequential</option>
+      </select><br><br>
+      <object id="rightResults" width="350" height="145" type="text/plain" data="/Resources/Results/Logistic Regression.txt" border="0" style="overflow: hidden;"></object>
+      <img id="rightImg1" src="/Resources/Results/Logistic Regression.jpg" width="525" height="350"><br><br>
+    </div>
+  </div>
+</div>
+
+<!-- Container (SUMMARY Section) -->
+<div id="summ" class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>SUMMARY</h2><br>
+      <h4>Performance Metrics</h4><br>
+      <p>Now that we have run several classification models, how should we determine which is the better model in predicting the malignancy of a tumor? There are a 
+        few metrics that we can use in determining the performance of our models. They are:</p>
+        <ol>
+          <li><strong>Classification accuracy</strong> - this is most common method in evaluating the performance of the classification models</li>
+          <li><strong>Logarithmic loss (Logloss)</strong> - this is a probability-based mechanism, measuring the classifier’s confidence in predicting accuracy 
+            (i.e., a score of 0 indicates no confidence classifier’s ability to achieve prediction while a score of 1 indicates complete confidence that the classifier 
+            would achieve its prediction)</li>
+          <li><strong>AUC - Area Under ROC Curve</strong> - this method informs us on a classifier’s ability to distinguish between classes. The higher the AUC, the better 
+            it is in predicting our binary classes (e.g., benign or malignant)</li>
+          <li><strong>Confusion matrix</strong> - this method evaluates the performance of the classifier graphically with a table, matrix or chart with 4 different 
+            combinations of predicted and actual values</li>
+          <li><strong>Classification report</strong> - this performance measurement metric makes use of terms such as precision, recall, and f-1 score. Please refer to 
+            <a href="https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62" target="_blank">Understanding Confusion Matrix by Narkhede</a> to learn more about these terms</li>
+        </ol>
+      <br><br>
+      <h4>Conclusion</h4>
+      <p>We have looked into a few of these accuracy metrics when deciding the better model in predicting whether a breast cancer tumor is benign or malignant. Overall, 
+        the model accuracy observed across the different models is high and similar to each other with both Sequential Model and Logistic Regression scoring the highest 
+        overall accuracy (.96) followed by KNN (.95). Decision tree has the lowest accuracy at .90.</p><br>
+    </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4">
+      <table class="table table-striped">
+        <thead>
+          <tr style="text-align: right;">
+            <th>Classifier</th>
+            <th>Accuracy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sequential Model</td>
+            <td>0.957447</td>
+          </tr>
+          <tr>
+            <td>Logistic Regression</td>
+            <td>0.957447</td>
+          </tr>
+          <tr>
+            <td>KNN</td>
+            <td>0.946809</td>
+          </tr>
+          <tr>
+            <td>SVM</td>
+            <td>0.941489</td>
+          </tr>
+          <tr>
+            <td>Random Forest</td>
+            <td>0.941489</td>
+          </tr>
+          <tr>
+            <td>Decision Tree</td>
+            <td>0.898936</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+      <img id="accu_plot" style="width: 50%;" src="/Resources/Classifiers Accuracy.jpg" alt="Correlation Heatmap">
+    </div>
+    <br>
+  </div>
+  <div class="row">
+    <div class="col-sm-12" style="padding: 50px 30px;">
+      <p>When examining the area under ROC (AUC), both Sequential and Logistic Regression models have the largest area (.95) followed by Random Forest, KNN, and SVM (.94). 
+        Again, Decision Tree scores the lowest at .89.</p><br>
+      <div class="img-container">
+        <img src="/Resources/ROC - ALL models.jpg" width=600 height=600>
+      </div>
+      <br><br>
+      <p>Last but not least, we looked at the confusion matrix. Since the overall accuracy and AUC is similar across most of the models, we decided to use the metrics in the 
+        confusion matrix to determine the model that better predicts breast cancer. Specifically, we looked at the number of inaccurate predictions and more importantly, the 
+        number of False Negatives. Sequential and Logistic Regression models once again appear at the top, predicting the lowest number of inaccurate predictions with 4 FNs 
+        and 4 FPs. Consistent with other performance metrics, Decision Tree has the worst prediction among all models with a total of 19 inaccurate predictions.</p><br>
+      <div class="img-container">
+        <img src="/Resources/Results/Logistic Regression.jpg" style="width: 25%;">
+        <img src="/Resources/Results/Support Vector Machine.jpg" style="width: 25%;">
+        <img src="/Resources/Results/Decision Tree.jpg" style="width: 25%;">
+        <img src="/Resources/Results/Random Forest.jpg" style="width: 25%;">
+        <img src="/Resources/Results/K Nearest Neighbor.jpg" style="width: 25%;">
+        <img src="/Resources/Results/Sequential Model.jpg" style="width: 25%;">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12" style="padding: 20px 30px">
+      <h4><strong>Therefore, we conclude that both Sequential and Logistic Regression models are the top classifiers in predicting breast cancer while Decision Tree produces the worst 
+        prediction among the classifiers we examined.</strong></h4>
+    </div>
+  </div> 
+</div>
+
+<footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com" title="Visit w3schools">www.w3schools.com</a></p>
+</footer>
+
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+  
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+</script>
+
+<script src="logic.js"></script>
+</body>
+</html>
